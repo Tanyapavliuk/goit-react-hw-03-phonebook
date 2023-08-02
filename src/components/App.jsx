@@ -8,7 +8,7 @@ import ListItem from "./ListContact/ListItem";
 
 class App extends Component{
   state = {
-  contacts:[
+  contacts: [
     {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
     {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
@@ -16,6 +16,20 @@ class App extends Component{
   ],
   filter: '',
   }
+
+  componentDidMount() {
+    localStorage.setItem("contactsArray", JSON.stringify(this.state.contacts));
+    
+    if (localStorage.getItem('contactsArray')) {
+      this.setState({contacts:JSON.parse(localStorage.getItem('contactsArray') ||[]),})
+    }
+  }
+  componentDidUpdate(_, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem("contactsArray", JSON.stringify(this.state.contacts))
+    }
+  }
+
   handlerAddContact = (newContact) => { // з ContactForm приймаємо данні про новий контакт
     if (this.state.contacts !== '') {
       if (this.state.contacts.some(el => el.name.toLowerCase().includes(newContact.name.toLowerCase()))) { // якщо масив має така ім'я виводимо повідомлення
