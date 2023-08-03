@@ -7,6 +7,7 @@ export const Form = styled.form`
     padding: 20px;
     width: 400px;
     border: 3px solid #E6E6FA;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 `
 
 export const Title = styled.h2`
@@ -20,6 +21,8 @@ export const Input = styled.input`
     border: 1px solid #E6E6FA;
     border-radius:33px;
     cursor: pointer;
+
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     &:focus {
         border: 1px solid #9370DB;
     }
@@ -34,17 +37,22 @@ export const List = styled.ul`
 
 `
 export const Button = styled.button`
+    padding: 10px 25px;
+    border-radius:33px;
+    font-size:18px;
 
-padding: 10px 25px;
-border: 1px solid #6A5ACD;
-border-radius:33px;
-background-color:#E6E6FA;
-
-font-size:18px;
-cursor: pointer;
-transition: background-color 250ms linear, color 250ms linear;
-    &:hover {
-   
-    color:#FFFFFF; background-color:#6A5ACD;
-}
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #6A5ACD;
+    border: 1px solid transparent;
+    transition: background-color 250ms linear, color 250ms linear;
+    box-shadow: 3px 3px 3px 2px rgba(0, 0, 255, .2);
+    &:hover{
+        color: #6A5ACD;
+        background-color: #ffffff;
+        border: 1px solid #6A5ACD;
+    }
+    &:disabled{
+        background-color: #ccc;
+    }
 `

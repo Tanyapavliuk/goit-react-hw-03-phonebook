@@ -5,6 +5,7 @@ import ListContact from "./ListContact/ListContact";
 import ContactForm from "./ContactForm/ContactForm";
 import Filter from "./Filter/Filter";
 import ListItem from "./ListContact/ListItem";
+import DeliteBtn from "./DeliteBtn/DeliteBtn"; 
 
 class App extends Component{
   state = {
@@ -18,16 +19,15 @@ class App extends Component{
   }
 
   componentDidMount() {
-    localStorage.setItem("contactsArray", JSON.stringify(this.state.contacts));
-    
-    if (localStorage.getItem('contactsArray')) {
       this.setState({contacts:JSON.parse(localStorage.getItem('contactsArray') ||[]),})
-    }
   }
   componentDidUpdate(_, prevState) {
     if (prevState.contacts !== this.state.contacts) {
       localStorage.setItem("contactsArray", JSON.stringify(this.state.contacts))
     }
+  }
+  deliteAllContacts = () => {
+    this.setState({ contacts: [] });
   }
 
   handlerAddContact = (newContact) => { // з ContactForm приймаємо данні про новий контакт
@@ -61,6 +61,7 @@ class App extends Component{
         <ListContact>
           <ListItem data={this.state.contacts} filter={this.state.filter} handleDeleteContact={this.handleDeleteContact} />
         </ListContact>
+        <DeliteBtn delite={this.deliteAllContacts}/>
       </Wrapper>
     )
   }

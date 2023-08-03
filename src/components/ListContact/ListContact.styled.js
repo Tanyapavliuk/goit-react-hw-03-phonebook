@@ -14,14 +14,17 @@ export const Item = styled.li`
     font-size:20px;
 `
 export const Button = styled.button`
-    padding:5px 10px;
+    padding:10px 20px;
     border-radius:33px;
     cursor: pointer;
 
-    background-color:#E6E6FA;
+    color: #ffffff;
+    background-color: #6A5ACD;
+    border: 1px solid transparent;
     transition: background-color 250ms linear, color 250ms linear;
-    &:hover {
-    color:#FFFFFF; 
-    background-color:#6A5ACD;
-}
+    &:hover{
+        color: #6A5ACD;
+        background-color: #ffffff;
+        border: 1px solid #6A5ACD;
+    }
 `
