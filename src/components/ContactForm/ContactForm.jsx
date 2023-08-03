@@ -1,8 +1,10 @@
 import { Component } from "react";
 import FillAlert from "./FillAlert";
+import { ButtonClose } from "./FillAlert.styled";
 
 import { Input, Label, Button, Form } from '../App.styled'
 import { nanoid } from "nanoid";
+import {ReactComponent as CloseIcon} from '../../icons/close.svg'
 
 class ContactForm extends Component{
     state = {
@@ -10,15 +12,10 @@ class ContactForm extends Component{
       number: '',
       disabled: true,
   }
-  disabledBtn = () => {
-    const test = this.state.name && this.state.number ? { disabled: false } : { disabled: true };
-    return this.setState(test);
-      
-    }
+ 
     handleInputChange = (e) => {
-    const name = e.target.name; // динамічне визначення назви поля
+      const name = e.target.name; // динамічне визначення назви поля
       this.setState({ [name]: e.currentTarget.value })// інтуп залежить від state.name, при введенні прослуховуємо подію + записуємо нове значення в state 
-      this.disabledBtn();
     }
     handlerClickAdd = (event) => {
       event.preventDefault()// Відмінити перезавантаження сторінки
@@ -68,7 +65,8 @@ class ContactForm extends Component{
             />
           </Label>
           {!this.state.name||!this.state.number?<FillAlert/>:null}
-          <Button type='submit' onClick={this.handlerClickAdd} disabled={this.state.disabled}>Add contact</Button>
+          <Button type='submit' onClick={this.handlerClickAdd} disabled={!this.state.name || !this.state.number}>Add</Button>
+          <ButtonClose onClick={this.props.onClose}><CloseIcon width='10px' height='10px'/></ButtonClose>
         </Form>)
     }
 }

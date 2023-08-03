@@ -1,33 +1,36 @@
 import { Component } from "react";
 
-import { Wrapper, Title } from './App.styled'
+import { Wrapper, Title, Button } from './App.styled'
 import ListContact from "./ListContact/ListContact";
-import ContactForm from "./ContactForm/ContactForm";
 import Filter from "./Filter/Filter";
 import ListItem from "./ListContact/ListItem";
 import DeliteBtn from "./DeliteBtn/DeliteBtn"; 
+import Modal from "./Modal/Modal";
+import ContactForm from "./ContactForm/ContactForm";
 
 class App extends Component{
   state = {
-  contacts: [
-    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-  ],
+  contacts: [],
   filter: '',
+  showModal:false,
   }
 
   componentDidMount() {
       this.setState({contacts:JSON.parse(localStorage.getItem('contactsArray') ||[]),})
   }
   componentDidUpdate(_, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
+    if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem("contactsArray", JSON.stringify(this.state.contacts))
     }
   }
+  toggleModal = () => {//переключення модалки 
+    this.setState((prevState) => ({
+    showModal:!prevState.showModal
+  }))
+}
+
   deliteAllContacts = () => {
-    this.setState({ contacts: [] });
+    this.setState({ contacts: [] }); //видалення всіх контактів при натисненні на кнопку
   }
 
   handlerAddContact = (newContact) => { // з ContactForm приймаємо данні про новий контакт
@@ -40,11 +43,14 @@ class App extends Component{
     this.setState((prevState) => ({ // від поточного стану 
       contacts: [...prevState.contacts, newContact], //розпилюємо в новий масив поточний стан + додаємо новий контакт
     }));
+
+    this.toggleModal();//закриття модалки після додавання контакту
   }
    handleInputChange = (e) => {
     const name = e.target.name; // динамічне визначення назви поля
     this.setState({[name]:e.currentTarget.value})// інтуп залежить від state.name, при введенні прослуховуємо подію + записуємо нове значення в state 
   }
+  // фільтрація
   handleDeleteContact = (contactId) => { //приймаємо ід елементу на який клікнули
     this.setState((prevState) => ({//пед попереднього стану
     contacts: prevState.contacts.filter(contact => contact.id !== contactId)// викидуємо елемент ід якого співпадає, фільтрований масив відображається 
@@ -55,13 +61,14 @@ class App extends Component{
     return (
       <Wrapper>
         <Title>Phonebook</Title>
-        <ContactForm onSubmit={this.handlerAddContact} />
+        <Button type="button" onClick={this.toggleModal}>Add contact</Button>
         <Title>Contact</Title>
         <Filter value={this.state.filter} handleInputChange={this.handleInputChange} />
         <ListContact>
-          <ListItem data={this.state.contacts} filter={this.state.filter} handleDeleteContact={this.handleDeleteContact} />
+        <ListItem data={this.state.contacts} filter={this.state.filter} handleDeleteContact={this.handleDeleteContact} />
         </ListContact>
-        <DeliteBtn delite={this.deliteAllContacts}/>
+        <DeliteBtn delite={this.deliteAllContacts} />
+        {this.state.showModal && <Modal onClose={this.toggleModal}><ContactForm onSubmit={this.handlerAddContact} onClose={this.toggleModal}/></Modal>}
       </Wrapper>
     )
   }
