@@ -16,7 +16,10 @@ class App extends Component{
   }
 
   componentDidMount() {
-      this.setState({contacts:JSON.parse(localStorage.getItem('contactsArray') ||[]),})
+    if (localStorage.getItem('contactsArray')) {
+        this.setState({contacts:JSON.parse(localStorage.getItem('contactsArray') ||[]),})
+    }
+    
   }
   componentDidUpdate(_, prevState) {
     if (this.state.contacts !== prevState.contacts) {
