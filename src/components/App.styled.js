@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
 `
 export const Form = styled.form`
     padding: 20px;
-    width: 350px;
+    width: 320px;
 `
 
 export const Title = styled.h2`
@@ -16,13 +16,16 @@ export const Input = styled.input`
     display:block;
     margin:10px;
 
-    border: 1px solid #E6E6FA;
+    border: 1px solid #6A5ACD;
     border-radius:33px;
     cursor: pointer;
 
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-    &:focus {
+    &:focus,
+    &:hover {
         border: 1px solid #9370DB;
+        background-color: #6A5ACD;
+        color:#FFFFFF;
     }
 `
 export const Label = styled.label`

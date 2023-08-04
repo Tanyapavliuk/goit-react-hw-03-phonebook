@@ -70,8 +70,11 @@ class App extends Component{
         <ListContact>
         <ListItem data={this.state.contacts} filter={this.state.filter} handleDeleteContact={this.handleDeleteContact} />
         </ListContact>
-        <DeliteBtn delite={this.deliteAllContacts} />
-        {this.state.showModal && <Modal onClose={this.toggleModal}><ContactForm onSubmit={this.handlerAddContact} onClose={this.toggleModal}/></Modal>}
+        <DeliteBtn delite={this.deliteAllContacts} aria-label="button for delite a contact"/>
+        {this.state.showModal &&
+          <Modal onClose={this.toggleModal}>
+          <ContactForm onSubmit={this.handlerAddContact} onClose={this.toggleModal} />
+        </Modal>}
       </Wrapper>
     )
   }

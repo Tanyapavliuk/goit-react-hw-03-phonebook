@@ -1,8 +1,9 @@
 import { Component } from "react";
 import FillAlert from "./FillAlert";
 import { ButtonClose } from "./FillAlert.styled";
+import PropTypes from 'prop-types'; 
 
-import { Input, Label, Button, Form } from '../App.styled'
+import { Input, Label, Button, Form, Title} from '../App.styled'
 import { nanoid } from "nanoid";
 import {ReactComponent as CloseIcon} from '../../icons/close.svg'
 
@@ -42,7 +43,10 @@ class ContactForm extends Component{
   }
 
     render() {
-        return (<Form >
+      return (
+        <>
+        <Title style={{paddingLeft:'50px', marginBottom:'0'}}>Add a new contact</Title>
+        <Form >
           <Label>Name
             <Input
             value={this.state.name}//прив'язна імпуту до зачення в стейті 
@@ -65,9 +69,16 @@ class ContactForm extends Component{
             />
           </Label>
           {!this.state.name||!this.state.number?<FillAlert/>:null}
-          <Button type='submit' onClick={this.handlerClickAdd} disabled={!this.state.name || !this.state.number}>Add</Button>
-          <ButtonClose onClick={this.props.onClose}><CloseIcon width='10px' height='10px'/></ButtonClose>
-        </Form>)
+          <Button type='submit' onClick={this.handlerClickAdd} disabled={!this.state.name || !this.state.number} aria-label="Add a contact">Add</Button>
+          <ButtonClose aria-label="icon close" onClick={this.props.onClose}><CloseIcon width='10px' height='10px'/></ButtonClose>
+          </Form>
+          </>)
     }
 }
+
 export default ContactForm;
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func,
+  onClose: PropTypes.func,
+}

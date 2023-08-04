@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import { Component } from "react";
+
 import { Backdrop, ModalContent } from "./Modal.styled";
 
 
@@ -31,3 +33,7 @@ class Modal extends Component{
 }
 
 export default Modal;
+
+Modal.propTypes  = {
+ onClose:PropTypes.func, 
+}
